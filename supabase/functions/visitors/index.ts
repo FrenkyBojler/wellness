@@ -12,16 +12,25 @@ Deno.serve(async (_req) => {
       }
     );
 
-    const response = await fetch("https://wellnessbruntal.cz/");
-    const html = await response.text();
-    const match = html.match(/<span class="nmb">(\d+)<\/span>/);
-    const visitors = match ? parseInt(match[1]) : 0;
+    const response = await fetch("https://wellnessbruntal.cz/xmlCounter.php");
+    const xml = await response.text();
 
-    await supabase
+    const countMatch = xml.match(/<Count>(\d+)<\/Count>/);
+    const countValue = countMatch ? countMatch[1] : null;
+
+    if (!countValue) {
+      return new Response("Count value not found", { status: 500 });
+    }
+
+    const { error } = await supabase
       .from("visitors")
-      .insert([{ count: visitors, created_at: new Date() }]);
+      .insert([{ visitors_count: countValue }]);
 
-    return new Response(JSON.stringify({ visitors }), {
+    if (error) {
+      return new Response(error.message, { status: 500 });
+    }
+
+    return new Response(JSON.stringify({ countValue }), {
       headers: { "Content-Type": "application/json" },
       status: 200,
     });
