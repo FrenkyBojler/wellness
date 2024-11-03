@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wellness_fe/di.dart';
 import 'package:wellness_fe/resources/app_colours.dart';
@@ -7,8 +6,6 @@ import 'package:wellness_fe/resources/styles.dart';
 import 'package:wellness_fe/vistitors/visitors_widget.dart';
 
 void main() async {
-  await dotenv.load(fileName: ".env");
-
   WidgetsFlutterBinding.ensureInitialized();
 
   const url = "https://oxcpprcaaiglrnaeyjtf.supabase.co/";

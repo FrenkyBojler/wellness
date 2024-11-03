@@ -149,7 +149,7 @@ LineChartData getChartData(List<Map<DateTime, int>> data) {
     minX: 0,
     maxX: 180,
     minY: 0,
-    maxY: 150,
+    maxY: 250,
     lineBarsData: data.reversed.mapIndexed((index, dateData) {
       return LineChartBarData(
         spots: dateData.entries
