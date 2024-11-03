@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wellness_fe/di.dart';
@@ -12,17 +11,14 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  final supabaseUrl = dotenv.env['SUPABASE_URL'];
-  final supabaseAnonKey = dotenv.env['SUPABASE_ANON_KEY'];
+  const url = "https://oxcpprcaaiglrnaeyjtf.supabase.co/";
+  const key =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94Y3BwcmNhYWlnbHJuYWV5anRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU2MDc5MjYsImV4cCI6MjA0MTE4MzkyNn0.f8X2ioYENQAmtr-KNZ4Z9eRS6GiwH1HOhoO5ZxvDVGs";
 
-  if (supabaseUrl == null || supabaseAnonKey == null) {
-    print('Missing SUPABASE_URL or SUPABASE_ANON_KEY in .env file');
-  } else {
-    await Supabase.initialize(
-      url: supabaseUrl,
-      anonKey: supabaseAnonKey,
-    );
-  }
+  await Supabase.initialize(
+    url: url,
+    anonKey: key,
+  );
 
   initDI();
   runApp(MyApp());
